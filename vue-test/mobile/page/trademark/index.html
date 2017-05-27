@@ -1,0 +1,128 @@
+<div class="navbar c-no-after">
+	<div class="navbar-inner">
+		<div class='left'>
+			商标
+		</div>
+		<div class="center sliding virtualSearch" >
+			<a href='page/trademark/search.html'>
+				<i class='fa fa-search'>
+				</i>
+				<span>
+					输入您想要的内容
+				</span>
+			</a>
+		</div>
+		<!--<div class='right sliding '>-->
+		<!--</div>-->
+	</div>
+</div>
+
+
+
+<div class="page" data-page="page_trademark" id='page_trademark'>
+	
+	<div class="page-content infinite-scroll infinite-scroll-bottom" id='tm_pageContent'>
+		
+		<div class='c-filter'>
+			<!--<div class='c-patentType'><span class=''>商标分类</span></div>-->
+			<div class='c-patentStatus' id='tm_type_filter'><span class=''>商标类型</span></div>
+			<div class='c-priceRange' id='tm_priceRange_filter'><span class=''>价格范围</span></div>
+			<div class='c-sortMethod' id='tm_sortMethod_filter'><span class=''>排序方式</span></div>
+		</div>
+		
+		<!--<div class='c-patentType-eject'>-->
+			<!--<div data-pagination=".swiper-pagination-h" class="swiper-container swiper-init">-->
+				<!--<div class="swiper-pagination swiper-pagination-h"></div>-->
+				<!--<div class="swiper-wrapper">-->
+					<!--<div class="swiper-slide">-->
+						<!--<div class="row no-gutter" id='trademark_classify_ul_part1'>-->
+						<!---->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<div class="swiper-slide">-->
+						<!--<div class="row no-gutter" id='trademark_classify_ul_part2'>-->
+						<!---->
+						<!--</div>-->
+					<!--</div>-->
+				<!--</div>-->
+			<!--</div>-->
+		<!--</div>-->
+		<div class='c-patentStatus-eject' id='tm_type_eject'>
+			<div class='list-block c-margin0'>
+				<ul id='trademark_type_ul'>
+				
+				</ul>
+			</div>
+		</div>
+		<div class='c-priceRange-eject' id='tm_priceRange_eject'>
+			<div class='list-block c-margin0'>
+				<ul id='trademark_priceRange_ul'>
+				
+				</ul>
+			</div>
+		</div>
+		<div class='c-sortMethod-eject' id='tm_sortMethod_eject'>
+			<div class='list-block c-margin0'>
+				<ul id='trademark_sortMethod_ul'>
+				
+				</ul>
+			</div>
+		</div>
+		<div class="c-margin60"></div>
+		<div class="list-block cards-list ">
+			<ul class="" id='trademark_ul'>
+			
+			</ul>
+		</div>
+		<div class="infinite-scroll-preloader" id='tm_infinite_preloader'>
+			<div class="preloader"></div>
+		</div>
+		<!--<div class='c-margin100'></div>-->
+	</div>
+	
+	<script id="trademark_template" type="text/template7">
+		{{#each trademark}}
+		<li class="card c-tm-card">
+			<a class="item-link" href='page/trademark/detail.html?id={{id}}'>
+				<div class="card-content">
+					<div class="card-content-inner">
+						<div style=''>
+						</div>
+						<div style=''>
+							<span>{{trademark_price}}</span>
+							<p>{{trademark_header}}</p>
+							<p>{{trademark_sort}}&nbsp;&nbsp;&nbsp;注册于{{trademark_registDate}}</p>
+							<p style=''>
+								{{trademark_describ}}&nbsp;&nbsp;&nbsp;{{trademark_type}}&nbsp;&nbsp;&nbsp;点击量：{{hot}}
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class='card-footer'>
+					{{company}}&nbsp;&nbsp;&nbsp;id:{{id}}
+				</div>
+			</a>
+		</li>
+		{{/each}}
+	</script>
+	<script type='text/template7' id='ejectTemplate_tm'>
+		{{#each eject_titles}}
+		<li class='ejectItem_tm' data-id={{this.title_id}}>
+			<div class="item-content">
+				<div class="item-inner">
+					<div class="item-title">
+						{{this.eject_title}}
+					</div>
+				</div>
+			</div>
+		</li>
+		{{/each}}
+	</script>
+	
+	<!--<script type='text/template' id='ejectSortTemplate'>-->
+		<!--{{#each eject_titles}}-->
+		<!--<div class="col-50">{{sort_name}}</div>-->
+		<!--{{/each}}-->
+	<!--</script>-->
+
+</div>
