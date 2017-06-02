@@ -1,40 +1,66 @@
 <template>
     <!--<div id='patentContainer'>-->
-        <f7-page name="page_patent" id='page_patent' :infinite-scroll="isScroll" @infinite="onInfiniteScroll"
-                 :infinite-scroll-preloader="hasPreloader">
-            <f7-navbar class="c-no-after">
-                <f7-nav-left>
-                    专利
-                </f7-nav-left>
-                <f7-nav-center sliding class='virtualSearch'>
-                    <a href='/patent/search'>
-                        <f7-icon fa="search"></f7-icon>
-                        <span>
+    <f7-page name="pagePatent" id='page_patent' :infinite-scroll="isScroll" @infinite="onInfiniteScroll"
+             :infinite-scroll-preloader="hasPreloader">
+        <f7-navbar class="c-no-bottomLine">
+            <f7-nav-left>
+                专利
+            </f7-nav-left>
+            <f7-nav-center sliding class='c-virtualSearch'>
+                <a href='/patent/search'>
+                    <f7-icon fa="search"></f7-icon>
+                    <span>
 					输入您想要的内容
 				    </span>
-                    </a>
-                </f7-nav-center>
-            </f7-navbar>
-            <patent-filter @getParam='getParamData'></patent-filter>
-            <patent-card  v-for='patent in patents' :patentData="patent" @click.native="$router.load({url:'/patent/detail/?id='+patent.id+''})"></patent-card>
-            <!--<div class="page-content  infinite-scroll-bottom " id='p_pageContent'>-->
+                </a>
+            </f7-nav-center>
+        </f7-navbar>
+        <patent-filter @getParam='getParamData'></patent-filter>
+        <div style="height: 44px"></div>
+        <patent-card v-for='patent in patents' :patentData="patent"
+                     @click.native="$router.load({url:'/patent/detail/?id='+patent.id+''})"></patent-card>
+        <!--<div class="page-content  infinite-scroll-bottom " id='p_pageContent'>-->
 
-            <!--<div class="infinite-scroll-preloader" id='p_infinite_preloader'>-->
-            <!--<div class="preloader"></div>-->
-            <!--</div>-->
+        <!--<div class="infinite-scroll-preloader" id='p_infinite_preloader'>-->
+        <!--<div class="preloader"></div>-->
+        <!--</div>-->
 
-            <!--</div>-->
-            <!--<script id="patent_template" type="text/template7">-->
-            <!---->
-            <!---->
-            <!---->
-            <!--</script>-->
-            <!--<script type='text/template7' id='ejectTemplate_p'>-->
-            <!---->
-            <!--</script>-->
-        </f7-page>
+        <!--</div>-->
+        <!--<script id="patent_template" type="text/template7">-->
+        <!---->
+        <!---->
+        <!---->
+        <!--</script>-->
+        <!--<script type='text/template7' id='ejectTemplate_p'>-->
+        <!---->
+        <!--</script>-->
+    </f7-page>
     <!--</div>-->
 </template>
+<style lang="less" rel="stylesheet/less" scoped>
+    .c-no-bottomLine {
+        &:after {
+            height: 0;
+        }
+    }
+
+    .c-virtualSearch {
+        width: 80%;
+        height: 35px;
+        color: #6d6d72;
+        background: #e3e3e5;
+        -webkit-border-radius: 50px;
+        a {
+            color: #6d6d72;
+            font-size: 15px;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center
+        }
+    }
+</style>
 <script>
     import PatentFilter from "../../conponents/patentFilter.vue"
     import PatentCard from "../../conponents/patentList.vue"
@@ -57,7 +83,6 @@
             console.log(this.param)
             $$.getJSON(config.mock.url + '/patent', this.param, (data, status, xhr) => {
                 this.patents = data;
-                console.log(data)
                 console.log('created')
                 this.param._page = 2
 //                this.paramInvariant._page=2
@@ -66,6 +91,7 @@
 //                console.log(param)
 //
 //            });
+            console.log('来自搜索页的查询数据--------------', this.$route.query)
         },
         watch: {
             param: {
@@ -88,6 +114,11 @@
 //                        this.isScroll = true
 //                        this.hasPreloader = true
                         this.$f7.attachInfiniteScroll($$('.page-content'));
+                        if (this.totalCount > 10) {
+                            this.hasPreloader = true
+                        } else {
+                            this.hasPreloader = false
+                        }
                     })
                 },
                 deep: true
@@ -118,38 +149,38 @@
                 //模拟一秒加载过程
                 setTimeout(function () {
                     self.loading = false
-                //每次滚动发送新的请求，动态参数为_page,此为总数据的分页数
-                console.log(self.param)
-                $$.getJSON(config.mock.url + "/patent", self.param,
-                    (data, status, xhr) => {
+                    //每次滚动发送新的请求，动态参数为_page,此为总数据的分页数
+                    console.log(self.param)
+                    $$.getJSON(config.mock.url + "/patent", self.param,
+                        (data, status, xhr) => {
 //                        self.loading = false
-                        self.totalCount = xhr.getResponseHeader("X-Total-Count");
-                        console.log(data)
+                            self.totalCount = xhr.getResponseHeader("X-Total-Count");
+                            console.log(data)
 //                        console.log(self)
 //                        data.forEach(function (item) {
 //                            self.patents.push(item)
 //                        })
-                        for(let item of data){
-                            self.patents.push(item)
-                        }
-                        //销毁滚动事件
-                        console.log(self.param._page, '销毁测试')
-                        console.log(self.perCount, '销毁测试')
-                        console.log(self.totalCount, '销毁测试')
-                        let page = self.param._page
-                        if (page * self.perCount >= self.totalCount) {
+                            for (let item of data) {
+                                self.patents.push(item)
+                            }
+                            //销毁滚动事件
+                            console.log(self.param._page, '销毁测试')
+                            console.log(self.perCount, '销毁测试')
+                            console.log(self.totalCount, '销毁测试')
+                            let page = self.param._page
+                            if (page * self.perCount >= self.totalCount) {
 //                            console.log($$('.infinite-scroll'))
-                            self.$f7.detachInfiniteScroll($$('.infinite-scroll'))
+                                self.$f7.detachInfiniteScroll($$('.infinite-scroll'))
 //                            self.isScroll = false
-                            self.hasPreloader = false
+                                self.hasPreloader = false
 //                                self.loading = true
-                            console.log(self.isScroll)
-                            return
-                        }
-                        //下次滚动发送请求时，分页为下一页
-                        self.param._page++
-                        console.log(self.param._page, '---------------------------')
-                    })
+                                console.log(self.isScroll)
+                                return
+                            }
+                            //下次滚动发送请求时，分页为下一页
+                            self.param._page++
+                            console.log(self.param._page, '---------------------------')
+                        })
                 }, 1000)
             }
         },
@@ -161,6 +192,11 @@
 //                return obj;
 //            }
         },
+        mounted () {
+            let a = this.$router
+            let b = this.$f7.mainView.router
+            console.log(a==b)
 
+        }
     }
 </script>

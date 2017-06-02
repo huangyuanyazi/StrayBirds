@@ -4,7 +4,7 @@
     <f7-page no-toolbar name="patent_detail" id='patent_detail'>
         <f7-navbar>
             <f7-nav-left>
-                <f7-link icon='icon-back' href="/patent/"></f7-link>
+                <f7-link icon='icon-back' href="javascript:void(0)" @click="$router.back()"></f7-link>
             </f7-nav-left>
             <f7-nav-center>专利详情</f7-nav-center>
             <f7-nav-right>
@@ -57,6 +57,13 @@
     </f7-page>
     <!--</div>-->
 </template>
+<style lang="less" rel="stylesheet/less" scoped>
+    .c-p-tm-call{
+        position: fixed;
+        bottom: 0;
+        width: 100%
+    }
+</style>
 <script>
     export default{
         data(){

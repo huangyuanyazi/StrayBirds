@@ -21,6 +21,9 @@
         </f7-card-footer>
     </f7-card>
 </template>
+<style lang="less" rel="stylesheet/less" scoped>
+
+</style>
 <script>
     export default{
 //        props: {

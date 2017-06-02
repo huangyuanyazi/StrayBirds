@@ -99,7 +99,7 @@ export default {
                     window.localStorage.historySearchData = JSON.stringify(historySearchData);
                     let data = getObj_localStorage('historySearchData')
                     $$("#search_history ul").html(list_search_history({search_history_list: data}))
-                    page.view.loadPage('page/patent/index.html?search='+historyItem);
+                    page.view.loadPage('page/patent/index.vue?search='+historyItem);
                     document.activeElement.blur()
                 }
             }

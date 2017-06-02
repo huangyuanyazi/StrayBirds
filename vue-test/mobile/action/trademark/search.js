@@ -70,7 +70,7 @@ export default {
          */
         $$('#trademark_search').on('keypress', '#searchEl_trademark', function () {
             if (event.keyCode == 13) {
-                page.view.loadPage('page/trademark/index.html?search=' + $$('#searchEl_trademark').val())
+                page.view.loadPage('page/trademark/index.vue?search=' + $$('#searchEl_trademark').val())
                 document.activeElement.blur()
             }
         })
